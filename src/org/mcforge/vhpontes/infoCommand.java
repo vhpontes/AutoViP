@@ -7,12 +7,10 @@ import java.util.Date;
 import lib.PatPeter.SQLibrary.MySQL;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class infoCommand implements CommandExecutor {
+public class infoCommand {
 	public MySQL mySQL;
 
 	public boolean info(CommandSender sender) {
@@ -65,10 +63,4 @@ public class infoCommand implements CommandExecutor {
 		return false;
 	}
 
-	@Override
-	public boolean onCommand(CommandSender arg0, Command arg1, String arg2,
-			String[] arg3) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

@@ -6,12 +6,10 @@ import java.sql.SQLException;
 import lib.PatPeter.SQLibrary.MySQL;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class listCommand implements CommandExecutor {
+public class listCommand {
 	public MySQL mySQL;
 
 	public void list(CommandSender sender) {
@@ -46,10 +44,4 @@ public class listCommand implements CommandExecutor {
 		return;
 	}
 
-	@Override
-	public boolean onCommand(CommandSender arg0, Command arg1, String arg2,
-			String[] arg3) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
