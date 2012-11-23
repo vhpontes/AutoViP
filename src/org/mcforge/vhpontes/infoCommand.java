@@ -13,6 +13,8 @@ import org.bukkit.entity.Player;
 public class infoCommand {
 	public MySQL mySQL;
 
+	ConfigFile configYML = new ConfigFile();
+
 	public boolean info(CommandSender sender) {
 		Player player = (Player) sender;
 
@@ -20,9 +22,18 @@ public class infoCommand {
 			return false;
 		}
 
-		mySQL = new MySQL(AutoViP.logger, "[AutoViP]", AutoViP.cfg_mysql_host,
-				"3306", AutoViP.cfg_mysql_db, AutoViP.cfg_mysql_user,
-				AutoViP.cfg_mysql_password);
+		String cfg_mysql_host = configYML.getCustomConfig().getString(
+				"general.mysql.host");
+		String cfg_mysql_db = configYML.getCustomConfig().getString(
+				"general.mysql.db");
+		String cfg_mysql_user = configYML.getCustomConfig().getString(
+				"general.mysql.user");
+		String cfg_mysql_password = configYML.getCustomConfig().getString(
+				"general.mysql.password");
+
+		mySQL = new MySQL(AutoViP.logger, "[AutoViP]", cfg_mysql_host, "3306",
+				cfg_mysql_db, cfg_mysql_user, cfg_mysql_password);
+
 		try {
 			mySQL.open();
 		} catch (Exception e) {
