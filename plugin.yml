@@ -1,0 +1,55 @@
+name: AutoViP
+main: org.mcforge.vhpontes.AutoViP
+version: 0.23-dev
+author: [vhpontes]
+website: http://mcforge.org
+
+commands:
+   av:
+      description: AutoViP Plugin Commands
+      permission: autovip.av
+      permission-message: You don't have permission to use this command.
+      
+permissions:
+    autovip.*:
+        description: Gives access to all AutoViP commands
+        children:
+            autovip.admin.reload: true
+            autovip.admin.list: true
+            autovip.admin.endvip: true
+            autovip.user.claim: true
+            autovip.user.check: true
+            autovip.user.info: true
+    autovip.admin.*:
+        description: Gives access to admin AutoViP commands
+        children:
+            autovip.reload: true
+            autovip.list: true
+            autovip.admin.endvip: true
+            autovip.claim: true
+            autovip.check: true
+            autovip.user.info: true
+    autovip.user.*:
+        description: Gives access to user AutoViP commands
+        children:
+            autovip.user.claim: true
+            autovip.user.check: true
+            autovip.user.info: true
+    autovip.admin.reload:
+        description: Reload plugin config file
+        default: op
+    autovip.admin.list:
+        description: List all avaliable codes
+        default: op
+    autovip.admin.endvip:
+        description: End ViP of a player
+        default: op
+    autovip.user.claim:
+        description: Use ViP code to promote
+        default: false
+    autovip.user.check:
+        description: Validate ViP code
+        default: false
+    autovip.user.info:
+        description: Informations of ViP player
+        default: true

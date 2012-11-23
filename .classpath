@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry exported="true" kind="lib" path="C:/workspace/bukkit-1.4.4-R0.1-20121116.060142-3.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/workspace/SQLibrary.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
