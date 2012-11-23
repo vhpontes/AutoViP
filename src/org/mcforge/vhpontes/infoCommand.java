@@ -43,27 +43,32 @@ public class infoCommand {
 		try {
 			String mySQLstring = "SELECT Player, Ativacao, Meses, Desativacao, Ativo FROM Vips WHERE Player='"
 					+ player.getName() + "'";
-			player.sendMessage(ChatColor.RED + "SQL>" + mySQLstring);
+			// player.sendMessage(ChatColor.RED + "SQL>" + mySQLstring);
 			ResultSet rs = this.mySQL.query(mySQLstring);
 			rs.last();
 			if (rs.getRow() > 0) {
 				if (rs.getBoolean("Ativo")) {
 
-					// DateFormat dateFormat = new
-					// SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 					Date d_atv = rs.getDate("Ativacao");
-					long total_vipsd = d_atv.getTime()
-							+ (1000 * 60 * 60 * 24 * 30 * rs.getInt("Meses"));
-					long diff = total_vipsd - d_atv.getTime();
+					long tempo_consulta = System.currentTimeMillis();
+					long datatime_ativacao = d_atv.getTime();
+					long tempo_contratado = (1000 * 60 * 60 * 24 * 30 * rs
+							.getInt("Meses"));
+					long tempo_vip = datatime_ativacao + tempo_contratado;
+					long diff = tempo_consulta - tempo_vip;
 					long vip_days = diff / (1000 * 60 * 60 * 24);
+					long contratado_vip_days = tempo_vip
+							/ (1000 * 60 * 60 * 24);
 
 					player.sendMessage(ChatColor.GREEN + "ViP Ativo desde "
 							+ ChatColor.YELLOW + rs.getDate("Ativacao")
 							+ ChatColor.GREEN + " sua conta ViP acaba em "
-							+ ChatColor.RED + vip_days + " dias.");
+							+ ChatColor.RED + vip_days
+							+ " dias de um total de " + contratado_vip_days
+							+ "dias.");
 				} else {
-					player.sendMessage(ChatColor.RED
-							+ "Voce nao tem uma conta ViP Ativa!");
+					player.sendMessage(ChatColor.RED + player.getName()
+							+ ", voce nao tem nenhuma conta ViP Ativa!");
 				}
 			}
 			rs.close();

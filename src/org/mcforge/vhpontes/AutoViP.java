@@ -40,8 +40,8 @@ public final class AutoViP extends JavaPlugin {
 	public void onEnable() {
 		PluginManager pm = this.getServer().getPluginManager();
 		PluginDescriptionFile pdfFile = this.getDescription();
-		logger.info("AutoViP" + pdfFile.getName() + " version "
-				+ pdfFile.getVersion() + " is enabled.");
+		logger.info(pdfFile.getName() + " version " + pdfFile.getVersion()
+				+ " is enabled.");
 
 		try {
 			config = getConfig();
@@ -116,6 +116,7 @@ public final class AutoViP extends JavaPlugin {
 		debug = getConfig().getBoolean("settings.debug", false);
 		debugMsg("Reloading config");
 		this.reloadConfig();
+		logger.info("Reloaded config file");
 	}
 
 	public void debugMsg(String msg) {
