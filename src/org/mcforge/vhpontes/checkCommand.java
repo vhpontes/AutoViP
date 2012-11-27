@@ -42,7 +42,6 @@ public class checkCommand {
 		try {
 			String mySQLstring = "SELECT Code, Used, Player, Date FROM Codes WHERE Code='"
 					+ code.toString() + "'";
-			// player.sendMessage(ChatColor.RED + "SQL>" + mySQLstring);
 			ResultSet rs = this.mySQL.query(mySQLstring);
 			rs.last();
 			if (rs.getRow() > 0) {

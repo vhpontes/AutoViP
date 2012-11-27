@@ -2,6 +2,7 @@ package org.mcforge.vhpontes;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lib.PatPeter.SQLibrary.MySQL;
@@ -48,26 +49,41 @@ public class infoCommand {
 			rs.last();
 			if (rs.getRow() > 0) {
 				if (rs.getBoolean("Ativo")) {
-
+					SimpleDateFormat formato = new SimpleDateFormat(
+							"dd/MM/yyyy");
 					Date d_atv = rs.getDate("Ativacao");
-					long tempo_consulta = System.currentTimeMillis();
-					long datatime_ativacao = d_atv.getTime();
-					long tempo_contratado = (1000 * 60 * 60 * 24 * 30 * rs
-							.getInt("Meses"));
-					long tempo_vip = datatime_ativacao + tempo_contratado;
-					long diff = tempo_consulta - tempo_vip;
-					long vip_days = diff / (1000 * 60 * 60 * 24);
-					long contratado_vip_days = tempo_vip
-							/ (1000 * 60 * 60 * 24);
+					String data_formatada = formato.format(d_atv);
 
-					player.sendMessage(ChatColor.GREEN + "ViP Ativo desde "
-							+ ChatColor.YELLOW + rs.getDate("Ativacao")
-							+ ChatColor.GREEN + " sua conta ViP acaba em "
-							+ ChatColor.RED + vip_days
-							+ " dias de um total de " + contratado_vip_days
-							+ "dias.");
+					long tempo_consulta = System.currentTimeMillis();
+					long meses = rs.getLong("Meses");
+					long datatime_ativacao = d_atv.getTime();
+					// long tempo_contratado = ((1000 * 60 * 60 * 24 * 30) *
+					// meses);
+					long tempo_contratado = 2592000000L * meses;
+
+					long tempo_vip = datatime_ativacao + tempo_contratado;
+					long diff = tempo_vip - tempo_consulta;
+					long vip_days = (diff / (1000L * 60L * 60L * 24L)) + 1;
+
+					player.sendMessage(ChatColor.YELLOW + player.getName()
+							+ ChatColor.GREEN + ", seu ViP foi ativado no dia "
+							+ ChatColor.YELLOW + data_formatada
+							+ ChatColor.GREEN + " voce ainda tem "
+							+ ChatColor.YELLOW + vip_days + " dias "
+							+ ChatColor.GREEN + " de conta ViP restantes!");
+					player.sendMessage(ChatColor.GREEN + "Meses contratados:  "
+							+ ChatColor.YELLOW + meses);
+					if (vip_days < 5) {
+						player.sendMessage(ChatColor.RED
+								+ "Atencao! Sua conta ViP acaba em "
+								+ vip_days
+								+ " dias. "
+								+ ChatColor.GREEN
+								+ "Adquira uma novo ViP Code em nosso site: http://mcforge.org");
+					}
 				} else {
-					player.sendMessage(ChatColor.RED + player.getName()
+					player.sendMessage(ChatColor.YELLOW + player.getName()
+							+ ChatColor.RED
 							+ ", voce nao tem nenhuma conta ViP Ativa!");
 				}
 			}
@@ -78,5 +94,4 @@ public class infoCommand {
 		}
 		return false;
 	}
-
 }

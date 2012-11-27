@@ -63,6 +63,8 @@ public class claimCommand {
 
 					int cfg_getvip_money = configYML.getCustomConfig().getInt(
 							"general.getViP.money");
+					int cfg_getvip_xp = configYML.getCustomConfig().getInt(
+							"general.getViP.xp");
 					String cfg_ViPgroup = configYML.getCustomConfig()
 							.getString("general.ViPgroup");
 
@@ -84,9 +86,16 @@ public class claimCommand {
 						player.performCommand(command);
 					}
 
+					/* If set give Money to player in claim */
 					if (cfg_getvip_money > 0) {
 						player.performCommand("eco give " + player.getName()
 								+ " " + cfg_getvip_money);
+					}
+
+					/* If set give XP to player in claim */
+					if (cfg_getvip_xp > 0) {
+						player.performCommand("exp give " + player.getName()
+								+ " " + cfg_getvip_xp);
 					}
 
 					try {
@@ -110,9 +119,11 @@ public class claimCommand {
 						java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
 								"yyyy-MM-dd HH:mm:ss");
 						String currentTime = sdf.format(dt);
-						String mySQLstring2 = "UPDATE Vips SET Player='"
-								+ player.getName() + "', Ativacao='"
-								+ currentTime + "' WHERE Code_used='"
+						String mySQLstring2 = "UPDATE Vips SET Ativo=1 Player='"
+								+ player.getName()
+								+ "', Ativacao='"
+								+ currentTime
+								+ "' WHERE Code_used='"
 								+ code.toString() + "'";
 						ResultSet rs2 = this.mySQL.query(mySQLstring2);
 						rs2.close();

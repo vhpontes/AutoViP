@@ -34,14 +34,14 @@ public class Commands implements CommandExecutor {
 				if (args[0].equalsIgnoreCase("reload")) {
 					if (player.hasPermission("autovip.admin.reload")) {
 						plugin.reloadAutoViP();
-						player.sendMessage(ChatColor.GREEN
+						player.sendMessage(ChatColor.DARK_AQUA
 								+ "[AutoViP] - Config File Reloaded");
 						return true;
 					}
 				}
 				if (args[0].equalsIgnoreCase("list")) {
 					if (player.hasPermission("autovip.admin.list")) {
-						player.sendMessage(ChatColor.GREEN
+						player.sendMessage(ChatColor.DARK_AQUA
 								+ "[AutoViP] - ViP Codes");
 						listExecutor = new listCommand();
 						listExecutor.list(player);
@@ -50,8 +50,8 @@ public class Commands implements CommandExecutor {
 				}
 				if (args[0].equalsIgnoreCase("info")) {
 					if (player.hasPermission("autovip.user.info")) {
-						player.sendMessage(ChatColor.GREEN
-								+ "[AutoViP] - ViP Account Info");
+						player.sendMessage(ChatColor.DARK_AQUA
+								+ "[AutoViP] - ViP Account Info:");
 						infoExecutor = new infoCommand();
 						infoExecutor.info(player);
 						return true;
@@ -60,13 +60,13 @@ public class Commands implements CommandExecutor {
 				}
 				if (args[0].equalsIgnoreCase("claim")) {
 					if (player.hasPermission("autovip.user.claim")) {
-						player.sendMessage(ChatColor.GREEN
+						player.sendMessage(ChatColor.DARK_AQUA
 								+ "[AutoViP] - Correct use: /av claim <VIP_CODE>");
 					}
 				}
 				if (args[0].equalsIgnoreCase("check")) {
 					if (player.hasPermission("autovip.user.check")) {
-						player.sendMessage(ChatColor.GREEN
+						player.sendMessage(ChatColor.DARK_AQUA
 								+ "[AutoViP] - Correct use: /av check <VIP_CODE>");
 					}
 				}
@@ -74,7 +74,7 @@ public class Commands implements CommandExecutor {
 			if (args.length == 2) {
 				if (args[0].equalsIgnoreCase("claim")) {
 					if (player.hasPermission("autovip.user.claim")) {
-						player.sendMessage(ChatColor.GREEN
+						player.sendMessage(ChatColor.DARK_AQUA
 								+ "[AutoViP] - ViP Code Claim: "
 								+ ChatColor.WHITE + args[1].toString());
 						claimExecutor = new claimCommand();
@@ -83,7 +83,7 @@ public class Commands implements CommandExecutor {
 				}
 				if (args[0].equalsIgnoreCase("check")) {
 					if (player.hasPermission("autovip.user.check")) {
-						player.sendMessage(ChatColor.GREEN
+						player.sendMessage(ChatColor.DARK_AQUA
 								+ "[AutoViP] - ViP Code Check: "
 								+ ChatColor.WHITE + args[1].toString());
 						checkExecutor = new checkCommand();
@@ -92,7 +92,7 @@ public class Commands implements CommandExecutor {
 				}
 				if (args[0].equalsIgnoreCase("endvip")) {
 					if (player.hasPermission("autovip.admin.endvip")) {
-						player.sendMessage(ChatColor.GREEN
+						player.sendMessage(ChatColor.DARK_AQUA
 								+ "[AutoViP] - End ViP Player: "
 								+ ChatColor.WHITE + args[1].toString());
 						endvipExecutor = new endvipCommand();
@@ -101,7 +101,7 @@ public class Commands implements CommandExecutor {
 				}
 			}
 		} else {
-			player.sendMessage(ChatColor.GREEN + "--------- AutoViP "
+			player.sendMessage(ChatColor.DARK_AQUA + "--------- AutoViP "
 					+ plugin.getDescription().getVersion().toString()
 					+ " Commands Help ---------");
 			player.sendMessage(ChatColor.YELLOW + "/" + label.toString()
