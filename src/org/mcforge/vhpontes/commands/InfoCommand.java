@@ -1,4 +1,4 @@
-package org.mcforge.vhpontes;
+package org.mcforge.vhpontes.commands;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,13 +10,17 @@ import lib.PatPeter.SQLibrary.MySQL;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.mcforge.vhpontes.AutoViP;
+import org.mcforge.vhpontes.utils.ConfigFileUtils;
 
-public class infoCommand {
+public class InfoCommand extends AutoViP {
 	public MySQL mySQL;
 
-	ConfigFile configYML = new ConfigFile();
+	ConfigFileUtils configYML = new ConfigFileUtils();
 
-	public boolean info(CommandSender sender) {
+	private String infoPlayer;
+
+	public boolean info(CommandSender sender, String arqplayer) {
 		Player player = (Player) sender;
 
 		if (!(sender instanceof Player)) {
@@ -26,9 +30,9 @@ public class infoCommand {
 		String cfg_mysql_host = configYML.getCustomConfig().getString(
 				"general.mysql.host");
 		String cfg_mysql_db = configYML.getCustomConfig().getString(
-				"general.mysql.db");
+				"general.mysql.database");
 		String cfg_mysql_user = configYML.getCustomConfig().getString(
-				"general.mysql.user");
+				"general.mysql.username");
 		String cfg_mysql_password = configYML.getCustomConfig().getString(
 				"general.mysql.password");
 
@@ -42,9 +46,13 @@ public class infoCommand {
 			player.sendMessage(ChatColor.RED + "AutoViP" + e.getMessage());
 		}
 		try {
+			if (arqplayer.isEmpty()) {
+				infoPlayer = player.getName();
+			} else {
+				infoPlayer = arqplayer.toString();
+			}
 			String mySQLstring = "SELECT Player, Ativacao, Meses, Desativacao, Ativo FROM Vips WHERE Player='"
-					+ player.getName() + "'";
-			// player.sendMessage(ChatColor.RED + "SQL>" + mySQLstring);
+					+ infoPlayer + "'";
 			ResultSet rs = this.mySQL.query(mySQLstring);
 			rs.last();
 			if (rs.getRow() > 0) {
@@ -65,7 +73,7 @@ public class infoCommand {
 					long diff = tempo_vip - tempo_consulta;
 					long vip_days = (diff / (1000L * 60L * 60L * 24L)) + 1;
 
-					player.sendMessage(ChatColor.YELLOW + player.getName()
+					player.sendMessage(ChatColor.YELLOW + infoPlayer
 							+ ChatColor.GREEN + ", seu ViP foi ativado no dia "
 							+ ChatColor.YELLOW + data_formatada
 							+ ChatColor.GREEN + " voce ainda tem "
@@ -81,11 +89,10 @@ public class infoCommand {
 								+ ChatColor.GREEN
 								+ "Adquira uma novo ViP Code em nosso site: http://mcforge.org");
 					}
-				} else {
-					player.sendMessage(ChatColor.YELLOW + player.getName()
-							+ ChatColor.RED
-							+ ", voce nao tem nenhuma conta ViP Ativa!");
 				}
+			} else {
+				player.sendMessage(ChatColor.YELLOW + infoPlayer
+						+ ChatColor.RED + ", nao tem nenhuma conta ViP Ativa!");
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -94,4 +101,5 @@ public class infoCommand {
 		}
 		return false;
 	}
+
 }

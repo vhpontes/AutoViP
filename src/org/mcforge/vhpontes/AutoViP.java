@@ -11,7 +11,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class AutoViP extends JavaPlugin {
+public class AutoViP extends JavaPlugin {
 	public static AutoViP plugin;
 	public final static Logger logger = Logger.getLogger("Minecraft");
 	protected Commands commandsExecutor;
@@ -28,6 +28,8 @@ public final class AutoViP extends JavaPlugin {
 	public static String cfg_mysql_user;
 	public static String cfg_mysql_password;
 	public static List<String> config_commandslist = new ArrayList<String>();
+
+	public String AUTO_VIP_TAG = "[AutoViP] - ";
 
 	@Override
 	public void onDisable() {
@@ -50,17 +52,20 @@ public final class AutoViP extends JavaPlugin {
 					+ File.separator + "config.yml");
 			AutoViP.mkdir();
 
+			if (!config.contains("general.language")) {
+				config.set("general.language", "en");
+			}
 			if (!config.contains("general.mysql.enable")) {
 				config.set("general.mysql.enable", false);
 			}
 			if (!config.contains("general.mysql.host")) {
 				config.set("general.mysql.host", "localhost");
 			}
-			if (!config.contains("general.mysql.db")) {
-				config.set("general.mysql.db", "");
+			if (!config.contains("general.mysql.database")) {
+				config.set("general.mysql.database", "");
 			}
-			if (!config.contains("general.mysql.user")) {
-				config.set("general.mysql.user", "");
+			if (!config.contains("general.mysql.username")) {
+				config.set("general.mysql.username", "");
 			}
 			if (!config.contains("general.mysql.password")) {
 				config.set("general.mysql.password", "");
@@ -75,15 +80,33 @@ public final class AutoViP extends JavaPlugin {
 				config.set("general.getViP.message",
 						"The player has come to ViP Group");
 			}
+			if (!config.contains("general.getViP.endmessage")) {
+				config.set("general.getViP.message",
+						"The player has come to Default Group");
+			}
 			if (!config.contains("general.ViPgroup")) {
-				config.set("general.ViPgroup", "");
+				config.set("general.ViPgroup", "Vip");
+			}
+			if (!config.contains("general.Defaultgroup")) {
+				config.set("general.ViPgroup", "Default");
+			}
+			if (!config.contains("general.Items")) {
+				String[] listOfStrings = { "<item id or name> <amount>",
+						"<item id or name> <amount>" };
+				this.getConfig().set("general.Items",
+						Arrays.asList(listOfStrings));
 			}
 			if (!config.contains("general.Commands")) {
 				String[] listOfStrings = { "example command 1",
 						"example command 2", "example command 3" };
 				this.getConfig().set("general.Commands",
 						Arrays.asList(listOfStrings));
-				// config.set("general.Commands", "");
+			}
+			if (!config.contains("general.EndCommands")) {
+				String[] listOfStrings = { "example command 1",
+						"example command 2" };
+				this.getConfig().set("general.EndCommands",
+						Arrays.asList(listOfStrings));
 			}
 			saveConfig();
 		} catch (Exception e1) {
@@ -100,7 +123,7 @@ public final class AutoViP extends JavaPlugin {
 		 * if (cfg_mysql_enable) { cfg_mysql_host =
 		 * config.getString("general.mysql.host"); cfg_mysql_db =
 		 * config.getString("general.mysql.db"); cfg_mysql_user =
-		 * config.getString("general.mysql.user"); cfg_mysql_password =
+		 * config.getString("general.mysql.username"); cfg_mysql_password =
 		 * config.getString("general.mysql.password"); }
 		 */
 
@@ -114,7 +137,7 @@ public final class AutoViP extends JavaPlugin {
 
 	public void reloadAutoViP() {
 		debug = getConfig().getBoolean("settings.debug", false);
-		debugMsg("Reloading config");
+		debugMsg("Reloading config file");
 		this.reloadConfig();
 		logger.info("Reloaded config file");
 	}

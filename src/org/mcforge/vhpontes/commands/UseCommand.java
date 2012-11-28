@@ -1,4 +1,4 @@
-package org.mcforge.vhpontes;
+package org.mcforge.vhpontes.commands;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,28 +10,27 @@ import lib.PatPeter.SQLibrary.MySQL;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.mcforge.vhpontes.AutoViP;
+import org.mcforge.vhpontes.utils.ConfigFileUtils;
 
-public class claimCommand {
-	// Bukkit.getServer().broadcastMessage(cfg_getvip_message);
+public class UseCommand extends AutoViP {
 	public MySQL mySQL;
 
-	ConfigFile configYML = new ConfigFile();
+	ConfigFileUtils configYML = new ConfigFileUtils();
 
-	public boolean claim(CommandSender sender, String code) {
+	public boolean use(CommandSender sender, String code) {
 		Player player = (Player) sender;
 
 		if (!(sender instanceof Player)) {
 			return false;
 		}
 
-		// player.sendMessage(ChatColor.RED + "CODE ARG2: " + code.toString());
-
 		String cfg_mysql_host = configYML.getCustomConfig().getString(
 				"general.mysql.host");
 		String cfg_mysql_db = configYML.getCustomConfig().getString(
-				"general.mysql.db");
+				"general.mysql.database");
 		String cfg_mysql_user = configYML.getCustomConfig().getString(
-				"general.mysql.user");
+				"general.mysql.username");
 		String cfg_mysql_password = configYML.getCustomConfig().getString(
 				"general.mysql.password");
 		String cfg_getvip_message = configYML.getCustomConfig().getString(
@@ -42,8 +41,9 @@ public class claimCommand {
 		try {
 			mySQL.open();
 		} catch (Exception e) {
-			AutoViP.logger.info("AutoViP" + e.getMessage());
-			player.sendMessage(ChatColor.RED + "AutoViP" + e.getMessage());
+			AutoViP.logger.info("[AutoViP]" + e.getMessage());
+			player.sendMessage(ChatColor.RED + plugin.AUTO_VIP_TAG
+					+ e.getMessage());
 		}
 		try {
 
@@ -86,13 +86,13 @@ public class claimCommand {
 						player.performCommand(command);
 					}
 
-					/* If set give Money to player in claim */
+					/* If set give Money to player in use command */
 					if (cfg_getvip_money > 0) {
 						player.performCommand("eco give " + player.getName()
 								+ " " + cfg_getvip_money);
 					}
 
-					/* If set give XP to player in claim */
+					/* If set give XP to player in use command */
 					if (cfg_getvip_xp > 0) {
 						player.performCommand("exp give " + player.getName()
 								+ " " + cfg_getvip_xp);

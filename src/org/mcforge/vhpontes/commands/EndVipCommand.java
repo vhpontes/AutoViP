@@ -1,4 +1,4 @@
-package org.mcforge.vhpontes;
+package org.mcforge.vhpontes.commands;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,11 +10,13 @@ import lib.PatPeter.SQLibrary.MySQL;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.mcforge.vhpontes.AutoViP;
+import org.mcforge.vhpontes.utils.ConfigFileUtils;
 
-public class endvipCommand {
+public class EndVipCommand {
 	public MySQL mySQL;
 
-	ConfigFile configYML = new ConfigFile();
+	ConfigFileUtils configYML = new ConfigFileUtils();
 
 	public boolean endvip(CommandSender sender, String vipplayer) {
 		Player player = (Player) sender;
@@ -26,9 +28,9 @@ public class endvipCommand {
 		String cfg_mysql_host = configYML.getCustomConfig().getString(
 				"general.mysql.host");
 		String cfg_mysql_db = configYML.getCustomConfig().getString(
-				"general.mysql.db");
+				"general.mysql.database");
 		String cfg_mysql_user = configYML.getCustomConfig().getString(
-				"general.mysql.user");
+				"general.mysql.username");
 		String cfg_mysql_password = configYML.getCustomConfig().getString(
 				"general.mysql.password");
 		String cfg_getvip_endmessage = configYML.getCustomConfig().getString(

@@ -1,4 +1,4 @@
-package org.mcforge.vhpontes;
+package org.mcforge.vhpontes.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class ConfigFile extends JavaPlugin {
+public class ConfigFileUtils extends JavaPlugin {
 	private FileConfiguration customConfig = null;
 	private File customConfigFile = null;
 
