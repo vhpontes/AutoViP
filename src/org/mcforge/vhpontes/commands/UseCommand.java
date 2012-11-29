@@ -42,9 +42,8 @@ public class UseCommand extends AutoViP {
 			mySQL.open();
 		} catch (Exception e) {
 			AutoViP.logger.info("[AutoViP]" + e.getMessage());
-			player.sendMessage(ChatColor.RED + plugin.AUTO_VIP_TAG
-					+ e.getMessage());
 		}
+
 		try {
 
 			String mySQLstring = "SELECT Code, Used, Player, Date FROM Codes WHERE Code='"

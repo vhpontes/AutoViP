@@ -39,8 +39,8 @@ public class CheckCommand extends AutoViP {
 			mySQL.open();
 		} catch (Exception e) {
 			AutoViP.logger.info("AutoViP" + e.getMessage());
-			player.sendMessage(ChatColor.RED + "AutoViP" + e.getMessage());
 		}
+
 		try {
 			String mySQLstring = "SELECT Code, Used, Player, Date FROM Codes WHERE Code='"
 					+ code.toString() + "'";

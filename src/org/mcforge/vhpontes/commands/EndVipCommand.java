@@ -42,7 +42,6 @@ public class EndVipCommand {
 			mySQL.open();
 		} catch (Exception e) {
 			AutoViP.logger.info("AutoViP" + e.getMessage());
-			player.sendMessage(ChatColor.RED + "AutoViP" + e.getMessage());
 		}
 
 		if (player.isOp()) {

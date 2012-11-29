@@ -39,8 +39,8 @@ public class ListCommand extends AutoViP {
 			mySQL.open();
 		} catch (Exception e) {
 			AutoViP.logger.info("AutoViP" + e.getMessage());
-			player.sendMessage(ChatColor.RED + "AutoViP" + e.getMessage());
 		}
+
 		try {
 			ResultSet rs = this.mySQL
 					.query("SELECT Code FROM Codes WHERE Used = 0");
