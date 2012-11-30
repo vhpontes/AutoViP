@@ -5,23 +5,15 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import lib.PatPeter.SQLibrary.MySQL;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.mcforge.vhpontes.AutoViP;
-import org.mcforge.vhpontes.utils.ConfigFileUtils;
 import org.mcforge.vhpontes.utils.DatabaseUtils;
 
 public class InfoCommand extends AutoViP {
-	public MySQL mySQL;
-
-	ConfigFileUtils configYML = new ConfigFileUtils();
 
 	private String infoPlayer;
-
-	private DatabaseUtils DB;
 
 	public boolean info(CommandSender sender, String arqplayer) {
 		Player player = (Player) sender;
@@ -30,7 +22,7 @@ public class InfoCommand extends AutoViP {
 			return false;
 		}
 
-		DB = new DatabaseUtils();
+		DatabaseUtils DB = new DatabaseUtils();
 		if (DB.checkConnection()) {
 			try {
 				if (arqplayer.isEmpty()) {
@@ -40,7 +32,7 @@ public class InfoCommand extends AutoViP {
 				}
 				String mySQLstring = "SELECT Player, Ativacao, Meses, Desativacao, Ativo FROM Vips WHERE Player='"
 						+ infoPlayer + "'";
-				ResultSet rs = this.mySQL.query(mySQLstring);
+				ResultSet rs = DB.mySQL.query(mySQLstring);
 				rs.last();
 				if (rs.getRow() > 0) {
 					if (rs.getBoolean("Ativo")) {

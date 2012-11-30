@@ -1,6 +1,7 @@
 name: AutoViP
 main: org.mcforge.vhpontes.AutoViP
 version: 0.25-dev
+load: POSTWORLD
 author: [vhpontes]
 website: http://mcforge.org
 
